@@ -6,6 +6,7 @@ import java.util.List;
 public class Espace 
 {
     private List<Individu>[][] grille =  new ArrayList[300][300]; //Ajout de commentaire inutile
+                                                                    //Second commentaire inutile
 
     public Espace()
     {
