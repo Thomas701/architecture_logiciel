@@ -75,7 +75,7 @@ public class Espace
                     /*Insérer méthode SUSCEPTIBLE -> INFECTED*/
                     /*Si y'a eu changement alors nb_state[2]++ | nb_state[0]++ Sinon */
                     b = updSus(everyone[i]);
-                    if(b){nb_state[2]++;}
+                    if(b){nb_state[1]++;}
                     else{nb_state[0]++;}
                     break;
                 case EXPOSED :
@@ -165,11 +165,26 @@ public class Espace
         double r = new MTRandom().nextDouble();
         if(r <= p){
             b = true;
-            I.setStatut(Statut.INFECTED);
+            I.setStatut(Statut.EXPOSED);
             I.setTime(0);
         }
         return b;
     }
 
     public List<Individu> getInd(int i, int j) {return grille[i][j];}
+
+    public void resetGrille()
+    {
+        for (int i = 0; i < 300; i++) 
+        {
+            for (int j = 0; j < 300; j++)
+            {
+                try {
+                    this.grille[i][j].clear();
+                } catch (Exception e) {
+                    continue;
+                } 
+            }
+        }
+    }
 }
