@@ -39,11 +39,11 @@ public class Espace
         }
     }
 
-    public void moveAllInd(Individu[] everyone)
+    public void moveAllInd(Individu[] everyone, int n)
     {
         MTRandom random = new MTRandom();
         int nextX, nextY;
-        for(int i = 0; i < 20000; i++)
+        for(int i = 0; i < n; i++)
         {
             nextX = random.nextInt(300);
             nextY = random.nextInt(300);
@@ -51,6 +51,28 @@ public class Espace
             this.addInd(everyone[i], nextX, nextY);
             everyone[i].setX(nextX);
             everyone[i].setY(nextY);
+        }
+    }
+
+    public void analyseInd(Individu[] everyone, int n)
+    {
+        for(int i = 0; i < n; i++)
+        {
+            switch(everyone[i].getStatut()){
+                case SUSCEPTIBLE :
+                    /*Insérer méthode SUSCEPTIBLE -> INFECTED*/
+                    break;
+                case EXPOSED :
+                    /*Insérer méthode EXPOSED -> INFECTED */
+                    break;
+                case INFECTED :
+                    /*Insérer méthode INFECTED -> RECOVERED */
+                    break;
+                case RECOVERED :
+                    /*Insérer méthode RECOVERED -> SUSCEPTIBLE */
+                    break;
+            }
+
         }
     }
 
