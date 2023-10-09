@@ -10,15 +10,17 @@ public class Individu {
     private int x;
     private int y;
 
-    public Individu(Statut stat, int time, int dE, int dI, int dR, int x, int y)
+    public Individu(Statut stat, int time)
     {
-        this.x = x;
-        this.y = y;
+        MTRandom random = new MTRandom();
+
         this.statut = stat;
         this.time = time;
-        this.dE = dE;
-        this.dI = dI;
-        this.dR = dR;
+        this.x = random.nextInt(300);
+        this.y = random.nextInt(300);
+        this.dE = (int) (-3 * Math.log(1 - random.nextDouble()));
+        this.dI = (int) (-7 * Math.log(1 - random.nextDouble()));
+        this.dR = (int) (-365 * Math.log(1 - random.nextDouble()));
     }
 
     public int getX() {return x;}
