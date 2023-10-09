@@ -74,6 +74,9 @@ public class Espace
                 case SUSCEPTIBLE :
                     /*Insérer méthode SUSCEPTIBLE -> INFECTED*/
                     /*Si y'a eu changement alors nb_state[2]++ | nb_state[0]++ Sinon */
+                    b = updSus(everyone[i]);
+                    if(b){nb_state[2]++;}
+                    else{nb_state[0]++;}
                     break;
                 case EXPOSED :
                     /*Insérer méthode EXPOSED -> INFECTED */
