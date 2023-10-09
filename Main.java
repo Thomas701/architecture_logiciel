@@ -1,4 +1,6 @@
 import propagation.*;
+import java.io.FileWriter;
+import java.io.IOException;
 /**
  * Main
  */
@@ -6,19 +8,35 @@ public class Main {
 
     public static void main(String[] args) 
     {
-        Individu[] tabInd = initTab(19980, 20);
-        afficherInd(tabInd, 20000);
+        int replication = 100; // nombre replication
+        int iteration = 730; //nombre iteration
+        Individu[] tabInd = initTab(19980, 20); // initalisation tableau individus
+        int[] tabStat = new int[4]; // création tableau de status
+        int nbSusceptibles, nbExposed, nbInfected, nbRecovered;
         
-        // Individu[] tabInd = new Individu[20000];
-        // double random = new MTRandom().nextDouble();
-        // Espace E = new Espace();
-        // Individu i = new Individu(null, 1, 0, 0, 0, 1, 1);
-        // Individu j = new Individu(null, 0, 0, 0, 0, 1, 1);
-        // E.addInd(i, 1, 1);
-        // E.addInd(j, 1, 1);
-        // tabInd[0] = i;
-        // tabInd[1] = j;
-        // E.moveAllInd(tabInd);
+        for (int rep = 0; rep < replication; rep++)
+        {
+            // reset du nombre de status
+            for (int k = 0; k < tabStat.length; k++)
+                tabStat[k] = 0;
+            try (FileWriter csvWriter = new FileWriter("donnees.csv")) 
+            {
+                csvWriter.append("SUSCEPTIBLE,EXPOSED,INFECTED,RECOVERED\n");
+                for (int i = 0; i < iteration; i++) 
+                {
+                    //FONCTION ANALYSE
+                    nbSusceptibles = tabStat[0]; nbExposed = tabStat[1];
+                    nbInfected = tabStat[2]; nbRecovered = tabStat[3];
+                    csvWriter.append(nbSusceptibles + "," + nbExposed + "," + nbInfected + "," + nbRecovered + "\n");
+                    //FONCTION MOVE
+                }
+                csvWriter.flush();
+                csvWriter.close();
+            } catch (IOException e) {
+                System.out.println("Erreur lors de l'ouverture du fichier");
+                e.printStackTrace();
+            }
+        }
     }
 
     public static Individu[] initTab(int sizeS, int sizeI)
