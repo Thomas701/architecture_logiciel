@@ -51,6 +51,7 @@ public class Espace
             this.addInd(everyone[i], nextX, nextY);
             everyone[i].setX(nextX);
             everyone[i].setY(nextY);
+            everyone[i].setTime(everyone[i].getTime()+1);
         }
     }
 
@@ -72,21 +73,25 @@ public class Espace
 
                 case SUSCEPTIBLE :
                     /*Insérer méthode SUSCEPTIBLE -> INFECTED*/
+                    /*Si y'a eu changement alors nb_state[2]++ | nb_state[0]++ Sinon */
                     break;
                 case EXPOSED :
                     /*Insérer méthode EXPOSED -> INFECTED */
                     b = updExposed(everyone[i]);
-                    if(b){nb_state[1]++;}
+                    if(b){nb_state[2]++;}
+                    else{nb_state[1]++;}
                     break;
                 case INFECTED :
                     /*Insérer méthode INFECTED -> RECOVERED */
                     b = updInf(everyone[i]);
-                    if(b){nb_state[2]++;}
+                    if(b){nb_state[3]++;}
+                    else{nb_state[2]++;}
                     break;
                 case RECOVERED :
                     /*Insérer méthode RECOVERED -> SUSCEPTIBLE */
                     b = updRecov(everyone[i]);
-                    if(b){nb_state[3]++;}
+                    if(b){nb_state[0]++;}
+                    else{nb_state[3]++;}
                     break;
                 default :
                     break;   
@@ -101,6 +106,7 @@ public class Espace
         if(I.getTime() > I.getdE()){
             b = true;
             I.setStatut(Statut.INFECTED);
+            I.setTime(0);
         }
         return b;
     }
@@ -111,6 +117,7 @@ public class Espace
         if(I.getTime() > I.getdI()){
             b = true;
             I.setStatut(Statut.RECOVERED);
+            I.setTime(0);
         }
         return b;
     }
@@ -121,6 +128,7 @@ public class Espace
         if(I.getTime() > I.getdR()){
             b = true;
             I.setStatut(Statut.SUSCEPTIBLE);
+            I.setTime(0);
         }
         return b;
     }

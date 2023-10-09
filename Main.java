@@ -12,7 +12,6 @@ public class Main {
         int iteration = 730; //nombre iteration
         Individu[] tabInd = initTab(19980, 20); // initalisation tableau individus
         int[] tabStat = new int[4]; // création tableau de status
-        int nbSusceptibles, nbExposed, nbInfected, nbRecovered;
         
         for (int rep = 0; rep < replication; rep++)
         {
@@ -25,9 +24,7 @@ public class Main {
                 for (int i = 0; i < iteration; i++) 
                 {
                     //FONCTION ANALYSE
-                    nbSusceptibles = tabStat[0]; nbExposed = tabStat[1];
-                    nbInfected = tabStat[2]; nbRecovered = tabStat[3];
-                    csvWriter.append(nbSusceptibles + "," + nbExposed + "," + nbInfected + "," + nbRecovered + "\n");
+                    csvWriter.append(tabStat[0] + "," + tabStat[1] + "," + tabStat[2] + "," + tabStat[3] + "\n");
                     //FONCTION MOVE
                 }
                 csvWriter.flush();
