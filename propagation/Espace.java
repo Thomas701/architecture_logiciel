@@ -54,26 +54,75 @@ public class Espace
         }
     }
 
-    public void analyseInd(Individu[] everyone, int n)
+    public void analyseInd(Individu[] everyone, int n, int nb_state[]) //Syntaxe des états dans nb_state : SUS EXP INF REC
     {
+        boolean b;
+
+        /*Remise à zéro du nombre d'individu par état */
+        nb_state[0] = 0;
+        nb_state[1] = 0;
+        nb_state[2] = 0;
+        nb_state[3] = 0;
+
+        /*Parcours des individus */
         for(int i = 0; i < n; i++)
         {
             switch(everyone[i].getStatut()){
+                /*Chacunes des méthodes ci-dessous doit nous indiquer si y'a eu changement d'état ou non (on retourne un bool) */
+
                 case SUSCEPTIBLE :
                     /*Insérer méthode SUSCEPTIBLE -> INFECTED*/
                     break;
                 case EXPOSED :
                     /*Insérer méthode EXPOSED -> INFECTED */
+                    b = updExposed(everyone[i]);
+                    if(b){nb_state[1]++;}
                     break;
                 case INFECTED :
                     /*Insérer méthode INFECTED -> RECOVERED */
+                    b = updInf(everyone[i]);
+                    if(b){nb_state[2]++;}
                     break;
                 case RECOVERED :
                     /*Insérer méthode RECOVERED -> SUSCEPTIBLE */
+                    b = updRecov(everyone[i]);
+                    if(b){nb_state[3]++;}
                     break;
+                default :
+                    break;   
             }
 
         }
+    }
+
+    public boolean updExposed(Individu I)
+    {
+        boolean b = false;
+        if(I.getTime() > I.getdE()){
+            b = true;
+            I.setStatut(Statut.INFECTED);
+        }
+        return b;
+    }
+
+    public boolean updInf(Individu I)
+    {
+        boolean b = false;
+        if(I.getTime() > I.getdI()){
+            b = true;
+            I.setStatut(Statut.RECOVERED);
+        }
+        return b;
+    }
+
+    public boolean updRecov(Individu I)
+    {
+        boolean b = false;
+        if(I.getTime() > I.getdR()){
+            b = true;
+            I.setStatut(Statut.SUSCEPTIBLE);
+        }
+        return b;
     }
 
     public List<Individu> getInd(int i, int j) {return grille[i][j];}
