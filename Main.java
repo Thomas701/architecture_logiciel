@@ -1,4 +1,5 @@
 import propagation.*;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 /**
@@ -12,13 +13,21 @@ public class Main {
         int iteration = 730; //nombre iteration
         Individu[] tabInd = initTab(19980, 20); // initalisation tableau individus
         int[] tabStat = new int[4]; // création tableau de status
+
+        File directory = new File("fileStat");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
         
         for (int rep = 0; rep < replication; rep++)
         {
             // reset du nombre de status
             for (int k = 0; k < tabStat.length; k++)
                 tabStat[k] = 0;
-            try (FileWriter csvWriter = new FileWriter("donnees.csv")) 
+
+            String fileName = "fileStat/donnees_replication_" + rep + ".csv";
+
+            try (FileWriter csvWriter = new FileWriter(fileName)) 
             {
                 csvWriter.append("SUSCEPTIBLE,EXPOSED,INFECTED,RECOVERED\n");
                 for (int i = 0; i < iteration; i++) 
