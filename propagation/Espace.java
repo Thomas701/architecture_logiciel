@@ -133,5 +133,40 @@ public class Espace
         return b;
     }
 
+    public static int nb_Inf(List<Individu> l){
+        int nb_inf = 0;
+        for (Individu ind : l) {
+            if(ind.getStatut() == Statut.INFECTED){nb_inf++;}
+        }
+        return nb_inf;
+    }
+
+    public boolean updSus(Individu I){
+        int     nb_Inf = 0;
+        boolean b = false;
+        int x,y;                            /*Ces variables vont contenir les coordonnées du coin en haut à gauche, on effectue l'observation de gauche à droite et de bas en haut */
+        x = I.getX() - 1;
+        y = I.getY() - 1;
+        if(x < 0){x = 299;}
+        if(y < 0){y = 299;}
+        int coordx, coordy;                /*On reprend de nouvelle variable qui s'occupe de se déplacer dans la zone d'observation */
+        for(int k = 0; k < 3; k++){
+            coordx = (x+k) % 300;
+            for(int l = 0; l < 3; l++){
+                coordy = (y+l) % 300;
+                nb_Inf += nb_Inf(this.grille[coordx][coordy]);
+            }
+        }
+        /*On voit maintenant si l'individu va être infecté ou non */
+        double p = 1-Math.exp(-0.5*nb_Inf);
+        double r = new MTRandom().nextDouble();
+        if(r <= p){
+            b = true;
+            I.setStatut(Statut.INFECTED);
+            I.setTime(0);
+        }
+        return b;
+    }
+
     public List<Individu> getInd(int i, int j) {return grille[i][j];}
 }
