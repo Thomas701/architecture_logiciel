@@ -6,16 +6,13 @@ public class Main {
 
     public static void main(String[] args) 
     {
-        Individu[] tabInd = new Individu[2];
+        Individu[] tabInd = new Individu[20000];
         double random = new MTRandom().nextDouble();
         Espace E = new Espace();
-        Individu i = new Individu(null, 1, 0, 0, 0, 0, 0);
-        Individu j = new Individu(null, 0, 0, 0, 0, 0, 0);
-        E.addInd(i, 0, 0);
-        E.addInd(j, 0, 0);
-        for (Individu individu : (E.getGrille())[0][0]) {
-            System.out.println(individu.toString() + "\n");
-        }
+        Individu i = new Individu(null, 1, 0, 0, 0, 1, 1);
+        Individu j = new Individu(null, 0, 0, 0, 0, 1, 1);
+        E.addInd(i, 1, 1);
+        E.addInd(j, 1, 1);
         tabInd[0] = i;
         tabInd[1] = j;
         E.moveAllInd(tabInd);

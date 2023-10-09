@@ -11,9 +11,9 @@ public class Espace
 
     public Espace()
     {
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 3; j++) {
-                grille[i][j] = new ArrayList<>();
+        for (int i = 0; i < 300; i++) {
+            for (int j = 0; j < 300; j++) {
+                grille[i][j] = new ArrayList<Individu>();
             }
         }
     }
@@ -49,6 +49,8 @@ public class Espace
             nextY = random.nextInt(300);
             this.remInd(everyone[i], everyone[i].getX(), everyone[i].getY());
             this.addInd(everyone[i], nextX, nextY);
+            everyone[i].setX(nextX);
+            everyone[i].setY(nextY);
         }
     }
 
